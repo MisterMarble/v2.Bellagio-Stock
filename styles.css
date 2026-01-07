@@ -70,3 +70,7 @@ dialog{border:none;border-radius:16px;padding:0;max-width:720px;width:96%}
 .review-item{border:1px solid var(--border);border-radius:12px;padding:8px;display:flex;justify-content:space-between;gap:8px;background:#fff}
 .toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:10px;opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:9999;font-size:14px}
 .toast.show{opacity:1}
+/* Prevent iOS auto-zoom on Manual input → Slab number */
+#addSlabForm input[name="slab_number"] {
+  font-size: 16px;
+}
