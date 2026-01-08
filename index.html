@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bellagio Consignment Inventory</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Bellagio Consignment Inventory</h1>
+    <div id="counters" aria-live="polite">
+      <span id="count-total">Total slabs: 0</span>
+      <span id="count-available">Slabs available: 0</span>
+      <span id="count-used">Slabs used: 0</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="toolbar">
+      <button id="addSlabBtn" class="ghost">+ Add slab (manual)</button>
+      <button id="reviewBtn" class="ghost">Review ticked</button>
+    </section>
+
+    <section class="search-panel">
+      <label for="search">Find slab (ID or colour):</label>
+      <input id="search" type="search" placeholder="e.g. 1234/5678 or Calacatta Nova" autocomplete="off" spellcheck="false">
+      <div class="hint">Type slab/batch like <code>1234/5678</code> or just the colour name. Tap a result or press Enter to mark Available.</div>
+      <div id="results" class="results"></div>
+    </section>
+
+    <section class="lists">
+      <div class="list-card">
+        <h2>Available (present in yard)</h2>
+        <ul id="list-available"></ul>
+      </div>
+      <div class="list-card">
+        <h2>Used (not found this session)</h2>
+        <ul id="list-used"></ul>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button id="finishBtn" class="primary">FINISH & Create CSVs</button>
+      <button id="saveBtn" class="ghost">Save session</button>
+      <button id="resumeBtn" class="ghost">Resume session</button>
+      <button id="newBtn" class="ghost">New Session</button>
+    </section>
+  </main>
+
+  <footer>
+    <small>Session: <span id="session-id"></span></small>
+    <button id="installBtn" class="install-btn" hidden>Install App</button>
+  </footer>
+
+  <!-- Add slab modal -->
+  <dialog id="addSlabModal">
+    <form method="dialog" id="addSlabForm" class="modal">
+      <h3>Add slab (manual)</h3>
+      <div class="grid">
+        <label>Slab number<input name="slab_number" required placeholder="e.g. 1234"></label>
+        <label>Batch number<input name="batch_number" placeholder="e.g. 5678"></label>
+        <label>Material<input name="material_name" required placeholder="e.g. Calacatta Oro"></label>
+        <label>Size (mm)<select name="size_mm">
+          <option value="">—</option>
+          <option>3050 x 1400</option>
+          <option>3200 x 1600</option>
+          <option>3450 x 1940</option>
+        </select></label>
+        <label>Thickness (mm)<select name="thickness_mm"><option value=""></option><option value="20">20</option><option value="30">30</option></select></label>
+        <label>Notes<input name="notes" placeholder="optional"></label>
+      </div>
+      <menu>
+        <button type="button" id="cancelAdd" class="ghost">Cancel</button>
+        <button type="submit" value="default" class="primary">Add & mark Available</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <!-- Review modal -->
+  <dialog id="reviewModal">
+    <div class="modal">
+      <h3>Ticked slabs (Available)</h3>
+      <div id="reviewSummary" class="hint">Inventoried: 0 of 0</div>
+      <input id="reviewSearch" type="search" placeholder="Filter by ID or material">
+      <div id="reviewList" class="review-list"></div>
+      <menu>
+        <button id="closeReview" class="primary">Close</button>
+      </menu>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js?v=5"></script>
+</body>
+</html>
